@@ -12,8 +12,8 @@ def main():
     x = np.array(Image.open(args.input).getdata())
     y = np.array(Image.open(args.output).getdata())
     remain = np.count_nonzero(x - y) / float(len(x))
-    print "Removed %.2f%%, %.2f%% different" % ((1 - remain) * 100,
-                                                remain * 100)
+    print ("Removed %.2f%%, %.2f%% different" % ((1 - remain) * 100,
+                                                remain * 100))
 
 if __name__ == "__main__":
     main()

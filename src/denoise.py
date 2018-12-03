@@ -102,7 +102,7 @@ def simulated_annealing(y, kmax, E, localized_E, temp_dir):
     for k in range(1, kmax + 1):  # iterate kmax times
         start_time = time.time()
         t = temperature(k, kmax + 1)
-        print "k = %d, Temperature = %.4e" % (k, t)
+        print ("k = %d, Temperature = %.4e" % (k, t))
         accept, reject = 0, 0
         for idx in np.ndindex(y.shape):  # for each pixel in the matrix
             old, new, E1, E2 = localized_E(Ecur, idx[0], idx[1], x, y)
@@ -121,14 +121,14 @@ def simulated_annealing(y, kmax, E, localized_E, temp_dir):
         energy_record[0].append(end_time - initial_time)
         energy_record[1].append(Ebest)
 
-        print "--- k = %d, accept = %d, reject = %d ---" % (k, accept, reject)
-        print "--- k = %d, %.1f seconds ---" % (k, end_time - start_time)
+        print ("--- k = %d, accept = %d, reject = %d ---" % (k, accept, reject))
+        print ("--- k = %d, %.1f seconds ---" % (k, end_time - start_time))
 
         # save temporary results
         temp = sign(x, {-1: 0, 1: 255})
         temp_path = os.path.join(temp_dir, 'temp-%d.png' % (k))
         Image.fromarray(temp).convert('1', dither=Image.NONE).save(temp_path)
-        print "[Saved]", temp_path
+        print ("[Saved]", temp_path)
 
     return x, energy_record
 
@@ -183,7 +183,7 @@ def main():
     image = Image.open(args.input)
     result, energy_record = denoise_image(image, args, args.method)
     result.save(args.output)
-    print "[Saved]", args.output
+    print ("[Saved]", args.output)
 
     # plot time-energy relationship and save
     plt.plot(*energy_record)
@@ -192,7 +192,7 @@ def main():
     output_dir = os.path.dirname(os.path.realpath(args.output))
     plot_path = os.path.join(output_dir, args.method + '-energy-time.png')
     plt.savefig(plot_path)
-    print "[Saved]", plot_path
+    print ("[Saved]", plot_path)
 
 if __name__ == "__main__":
     main()

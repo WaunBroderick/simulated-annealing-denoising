@@ -19,7 +19,7 @@ def flip(data, density):
     temp: flipped data
     """
     data_len, temp = len(data), np.array(data)
-    for i in xrange(data_len):
+    for i in range(data_len):
         p = random()
         if p < density:
             temp[i] *= -1
